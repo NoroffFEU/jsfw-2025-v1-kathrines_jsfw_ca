@@ -13,10 +13,6 @@
     --color-terracotta: #c96f4a;
 }
 
-.btn-primary {
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow;
-}
-
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: 'Inter Variable', sans-serif;
@@ -61,24 +57,24 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --background: oklch(97.1% 0.005 117.9);        /* cream */
+    --foreground: oklch(25.4% 0.009 159.4);         /* ink */
+    --card: oklch(97.1% 0.005 117.9);               /* cream */
+    --card-foreground: oklch(25.4% 0.009 159.4);    /* ink */
+    --popover: oklch(97.1% 0.005 117.9);            /* cream */
+    --popover-foreground: oklch(25.4% 0.009 159.4); /* ink */
+    --primary: oklch(54.8% 0.055 146.5);            /* sage */
+    --primary-foreground: oklch(97.1% 0.005 117.9); /* cream */
+    --secondary: oklch(78.2% 0.049 138.4);          /* sage-light */
+    --secondary-foreground: oklch(25.4% 0.009 159.4); /* ink */
+    --muted: oklch(78.2% 0.049 138.4);              /* sage-light */
+    --muted-foreground: oklch(25.4% 0.009 159.4);   /* ink */
+    --accent: oklch(63.6% 0.125 42.5);              /* terracotta */
+    --accent-foreground: oklch(97.1% 0.005 117.9);  /* cream */
+    --destructive: oklch(0.577 0.245 27.325);       /* kept as shadcn's default red — see note below */
+    --border: oklch(78.2% 0.049 138.4 / 40%);       /* sage-light, softened */
+    --input: oklch(78.2% 0.049 138.4 / 40%);        /* sage-light, softened */
+    --ring: oklch(54.8% 0.055 146.5);               /* sage */
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -139,4 +135,9 @@
   html {
     @apply font-sans;
     }
+
+}
+
+a {
+    text-decoration: none;
 }
