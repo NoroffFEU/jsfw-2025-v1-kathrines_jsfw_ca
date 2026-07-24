@@ -1,18 +1,14 @@
-import {BASE_URL, SHOP_URL} from "./config.ts";
 import {APIError} from "./apiError.ts";
-import type {Product} from "../../schemas/product.ts";
 
-export async function fetchProducts():Promise<Product[]> {
-    const URL = `${BASE_URL}${SHOP_URL}`;
-    console.log(`Fetching ${URL}`);
-    let response
+export async function fetchHelper<T>(url: string, notFoundMessage: string): Promise<T> {
+    let response;
     try {
-        response = await fetch(URL)
+        response = await fetch(url)
         if(!response.ok) {
             if (response.status === 404) {
-                throw new APIError(`Could not find ${URL}`, response.status);
+                throw new APIError( notFoundMessage, response.status);
             } else if (response.status === 401 || response.status === 403) {
-                throw new APIError(`Unauthorized or fobidden`, response.status);
+                throw new APIError(`Unauthorised or forbidden`, response.status);
             }else if (response.status === 400) {
                 throw new APIError(`Bad request to the API`, response.status);
             } else if (response.status >= 500 && response.status <= 505) {
@@ -33,6 +29,5 @@ export async function fetchProducts():Promise<Product[]> {
         }
 
     }
-}
 
-await fetchProducts()
+}
