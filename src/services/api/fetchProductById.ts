@@ -1,4 +1,4 @@
-import type {Product} from "../../schemas/product.ts";
+import type {Product} from "@/schemas/product.ts";
 import {BASE_URL, SHOP_URL} from "./config.ts";
 import {fetchHelper} from "./fetchHelper.ts";
 

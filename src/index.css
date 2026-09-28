@@ -11,6 +11,7 @@
     --color-sage: #5c7a5e;
     --color-sage-light: #a9c0a2;
     --color-terracotta: #c96f4a;
+    --font-logo: 'Playfair Display', serif;
 }
 
 @theme inline {

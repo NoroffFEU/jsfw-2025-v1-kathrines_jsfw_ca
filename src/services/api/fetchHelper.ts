@@ -18,7 +18,6 @@ export async function fetchHelper<T>(url: string, notFoundMessage: string): Prom
             }
         } else {
             const { data } = await response.json();
-            console.log(data);
             return data;
         }
     } catch (error) {
@@ -31,3 +30,4 @@ export async function fetchHelper<T>(url: string, notFoundMessage: string): Prom
     }
 
 }
+
