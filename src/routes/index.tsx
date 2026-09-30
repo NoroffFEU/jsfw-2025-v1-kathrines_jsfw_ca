@@ -1,15 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router'
-//import {ProductCard} from "@/components/product/ProductCard.tsx";
 import ProductList from "@/routes/-components/ProductList.tsx";
+import SearchBar from "@/routes/-components/SearchBar.tsx";
 
 export const Route = createFileRoute('/')({
     component: Index,
+    validateSearch: (searchParams) => {
+        return {
+            filter: searchParams?.filter ? String(searchParams.filter) : undefined,
+            page: Number(searchParams?.page) || 1,
+        }
+    }
 })
 
 function Index() {
     return (
-        <div className="p-2">
-            <h3>Welcome Home!</h3>
+        <div className="mx-auto max-w-6xl justify-items-center p-2">
+            <SearchBar/>
             <ProductList/>
 
         </div>

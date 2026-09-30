@@ -4,8 +4,9 @@ import {fetchProducts} from "@/services/api/fetchProducts.ts";
 import LoadingSpinner from "@/components/common/LoadingSpinner.tsx";
 import ErrorMessage from "@/components/common/ErrorMessage.tsx";
 import {ProductCard} from "@/components/product/ProductCard.tsx";
-import {useState} from "react";
 import PaginationControls from "@/routes/-components/PaginationControls.tsx";
+import {useNavigate, useSearch} from "@tanstack/react-router"
+import type {Product} from "@/schemas/product.ts";
 
 const itemsPerPage = 6
 
@@ -14,7 +15,9 @@ export default  function ProductList() {
         queryKey: ['products'],
         queryFn: fetchProducts,
     })
-    const [currentPage, setCurrentPage] = useState(1)
+
+    const  { filter, page } = useSearch({from: '/'})
+    const navigate = useNavigate({ from: '/' })
 
     if(isLoading){
         return <LoadingSpinner />
@@ -30,27 +33,31 @@ export default  function ProductList() {
         )
     }
 
-    const totalPages = Math.ceil(data.length / itemsPerPage)
+   const productsToDisplay: Product[] = ((filter) ? data.filter((product) => product.title.toLowerCase().includes(filter.toLowerCase()) ||
+       product.description.toLowerCase().includes(filter.toLowerCase()) ||
+       product.tags.some((tag: string): boolean => tag.toLowerCase().includes(filter.toLowerCase()))) : data )
 
-    const indexOfLastItem = currentPage * itemsPerPage
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem)
+    const totalPages: number = Math.ceil(productsToDisplay.length / itemsPerPage)
 
-    const handlePageChange = (pageNumber: number) => {
+    const indexOfLastItem: number = page * itemsPerPage
+    const indexOfFirstItem: number = indexOfLastItem - itemsPerPage
+    const currentItems: Product[] = productsToDisplay.slice(indexOfFirstItem, indexOfLastItem)
+
+    const handlePageChange = (pageNumber: number): void => {
         if (pageNumber >= 1 && pageNumber <= totalPages)  {
-            setCurrentPage(pageNumber)
+            void navigate({search:{filter, page: pageNumber}, replace:true})
         }
     }
 
     return (
-        <div className={'mx-auto max-w-6xl my-10'}>
+        <div className={'my-10'}>
             <div className={"grid grid-cols-2 md:grid-cols-3 justify-items-center gap-3"}>
                 {currentItems.map((product) => (
                     <ProductCard key={product.id} product={product}/>
                 ))}
             </div>
             <div className={'my-5'}>
-                <PaginationControls currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+                <PaginationControls currentPage={page} totalPages={totalPages} onPageChange={handlePageChange}/>
             </div>
         </div>
 
